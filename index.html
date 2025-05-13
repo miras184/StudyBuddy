@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy — Your Smart Learning Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #8A2BE2 0%, #6A5ACD 50%, #9932CC 100%);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .language-selector {
+            transition: all 0.3s ease;
+        }
+        
+        .language-selector:hover {
+            transform: scale(1.05);
+        }
+        
+        .download-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .chat-container {
+            border: 2px solid #8A2BE2;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.2);
+        }
+        
+        .user-message {
+            background-color: #8A2BE2;
+            color: white;
+            border-radius: 18px 18px 0 18px;
+        }
+        
+        .ai-message {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            border-radius: 18px 18px 18px 0;
+        }
+        
+        .chat-input {
+            border: 2px solid #8A2BE2;
+        }
+        
+        .send-button {
+            background-color: #8A2BE2;
+            color: white;
+        }
+        
+        .send-button:hover {
+            background-color: #7B1FA2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-graduation-cap text-[#8A2BE2] text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-[#8A2BE2]">StudyBuddy</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">Features</a>
+                    <a href="#chat-demo" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">AI Chat Demo</a>
+                    <a href="#how-it-works" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">How It Works</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">Testimonials</a>
+                    <a href="#download" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">Download</a>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <button class="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#8A2BE2] shadow-sm hover:bg-[#7B1FA2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8A2BE2]">
+                            <span>Get Started</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                    Your Smart Learning Assistant
+                </h1>
+                <p class="mt-6 max-w-lg mx-auto text-xl">
+                    Study smarter, not harder with AI-powered tools that make education more efficient and enjoyable.
+                </p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <a href="#download" class="download-btn inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-[#8A2BE2] bg-white hover:bg-gray-50">
+                        <i class="fab fa-apple mr-2"></i> App Store
+                    </a>
+                    <a href="#download" class="download-btn inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#7B1FA2] hover:bg-[#6A1B9A]">
+                        <i class="fab fa-google-play mr-2"></i> Google Play
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-[#8A2BE2] font-semibold tracking-wide uppercase">Features</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Everything you need to succeed
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Feature 1 -->
+                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
+                            <i class="fas fa-calendar-alt text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900">Plan Smart</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Get personalized study plans based on your deadlines and subjects. Never miss an assignment again.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
+                            <i class="fas fa-robot text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900">Learn with AI</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Our AI-teacher explains even the most complex topics in a simple and understandable way.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
+                            <i class="fas fa-camera text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900">Check Homework</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Upload a photo or text of your assignment — get instant answers and explanations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
+                            <i class="fas fa-gamepad text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900">Gamify Learning</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Turn studying into a fun challenge with interactive quizzes and flashcards.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
+                            <i class="fas fa-chart-line text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900">Track Progress</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Visualize your learning journey with detailed analytics and performance tracking.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
+                            <i class="fas fa-users text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900">Parent & Teacher Mode</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Let parents and teachers track progress and support students' learning journey.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Demo Section -->
+    <div id="chat-demo" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-12">
+                <h2 class="text-base text-[#8A2BE2] font-semibold tracking-wide uppercase">AI Chat Demo</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Experience our AI tutor
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Try a simulated conversation with StudyBuddy's AI assistant
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="chat-container bg-white rounded-xl overflow-hidden">
+                    <!-- Chat header -->
+                    <div class="bg-[#8A2BE2] text-white p-4 flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
+                            <i class="fas fa-robot text-[#8A2BE2] text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">StudyBuddy AI</h3>
+                            <p class="text-xs opacity-80">Online • Ready to help</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat messages -->
+                    <div class="p-4 h-96 overflow-y-auto space-y-4" id="chat-messages">
+                        <!-- AI welcome message -->
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-[#8A2BE2] text-white flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-robot text-xs"></i>
+                            </div>
+                            <div class="ai-message px-4 py-3 max-w-xs sm:max-w-md">
+                                <p>Hello! I'm StudyBuddy AI. How can I help you with your studies today? You can ask me about any subject, homework problems, or study tips!</p>
+                            </div>
+                        </div>
+                        
+                        <!-- User message -->
+                        <div class="flex items-start justify-end">
+                            <div class="user-message px-4 py-3 max-w-xs sm:max-w-md">
+                                <p>Can you explain the Pythagorean theorem?</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center ml-3 flex-shrink-0">
+                                <i class="fas fa-user text-xs"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- AI response -->
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-[#8A2BE2] text-white flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-robot text-xs"></i>
+                            </div>
+                            <div class="ai-message px-4 py-3 max-w-xs sm:max-w-md">
+                                <p>Of course! The Pythagorean theorem states that in a right-angled triangle, the square of the hypotenuse (the side opposite the right angle) is equal to the sum of the squares of the other two sides.</p>
+                                <p class="mt-2 font-bold">Formula: a² + b² = c²</p>
+                                <p class="mt-2">Where:<br>
+                                • c is the hypotenuse<br>
+                                • a and b are the other two sides</p>
+                                <p class="mt-2">Would you like me to show you an example problem?</p>
+                            </div>
+                        </div>
+                        
+                        <!-- User message -->
+                        <div class="flex items-start justify-end">
+                            <div class="user-message px-4 py-3 max-w-xs sm:max-w-md">
+                                <p>Yes, please!</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center ml-3 flex-shrink-0">
+                                <i class="fas fa-user text-xs"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- AI response -->
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-[#8A2BE2] text-white flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-robot text-xs"></i>
+                            </div>
+                            <div class="ai-message px-4 py-3 max-w-xs sm:max-w-md">
+                                <p>Here's an example:</p>
+                                <p class="mt-2">Problem: A right triangle has sides of length 3 and 4. What is the length of the hypotenuse?</p>
+                                <p class="mt-2">Solution:<br>
+                                1. Identify a and b: a = 3, b = 4<br>
+                                2. Apply the formula: 3² + 4² = c²<br>
+                                3. Calculate: 9 + 16 = c² → 25 = c²<br>
+                                4. Take square root: c = √25 = 5</p>
+                                <p class="mt-2 font-bold">Answer: The hypotenuse is 5 units long.</p>
+                                <p class="mt-2">Would you like to try a practice problem?</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat input -->
+                    <div class="border-t border-gray-200 p-4 bg-gray-50">
+                        <div class="flex">
+                            <input type="text" placeholder="Type your question..." class="chat-input flex-1 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8A2BE2]">
+                            <button class="send-button rounded-r-lg px-4 py-2 font-medium transition duration-200">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">This is a demo. In the full app, you can chat with our AI about any subject!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div id="how-it-works" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-[#8A2BE2] font-semibold tracking-wide uppercase">How It Works</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Simple steps to better learning
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="relative">
+                    <div class="absolute left-1/2 -ml-px h-full w-0.5 bg-[#8A2BE2] bg-opacity-30" aria-hidden="true"></div>
+                    
+                    <div class="relative mb-12">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 px-4">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#8A2BE2] text-white">
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                            </div>
+                            <div class="ml-4 flex-grow">
+                                <h3 class="text-lg font-medium text-gray-900">Sign Up & Set Up</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Create your account, select your subjects, and input your upcoming deadlines. Our AI will analyze your schedule.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative mb-12">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 px-4">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#8A2BE2] text-white">
+                                    <span class="text-xl font-bold">2</span>
+                                </div>
+                            </div>
+                            <div class="ml-4 flex-grow">
+                                <h3 class="text-lg font-medium text-gray-900">Get Your Study Plan</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Receive a personalized study schedule that optimizes your time based on your learning pace and priorities.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative mb-12">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 px-4">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#8A2BE2] text-white">
+                                    <span class="text-xl font-bold">3</span>
+                                </div>
+                            </div>
+                            <div class="ml-4 flex-grow">
+                                <h3 class="text-lg font-medium text-gray-900">Learn & Interact</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Use our AI tutor, homework checker, and gamified learning tools to master your subjects efficiently.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 px-4">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#8A2BE2] text-white">
+                                    <span class="text-xl font-bold">4</span>
+                                </div>
+                            </div>
+                            <div class="ml-4 flex-grow">
+                                <h3 class="text-lg font-medium text-gray-900">Track & Improve</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Monitor your progress with detailed analytics and get recommendations to improve your weak areas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div id="testimonials" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-[#8A2BE2] font-semibold tracking-wide uppercase">Testimonials</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Loved by students worldwide
+                </p>
+            </div>
+
+            <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-white rounded-lg p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full" src="https://randomuser.me/api/portraits/women/32.jpg" alt="">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-medium text-gray-900">Amina K.</h4>
+                            <p class="text-[#8A2BE2]">High School Student</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-500">
+                            "StudyBuddy helped me improve my grades from B's to A's in just one semester. The AI explanations make complex math concepts so easy to understand!"
+                        </p>
+                    </div>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-white rounded-lg p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full" src="https://randomuser.me/api/portraits/men/45.jpg" alt="">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-medium text-gray-900">Dmitry P.</h4>
+                            <p class="text-[#8A2BE2]">University Student</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-500">
+                            "The homework checker saved me hours every week. I just take a photo of my assignments and get instant feedback. It's like having a tutor available 24/7."
+                        </p>
+                    </div>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card bg-white rounded-lg p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full" src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-medium text-gray-900">Sarah L.</h4>
+                            <p class="text-[#8A2BE2]">Parent</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-500">
+                            "As a parent, I love the progress tracking feature. I can see exactly where my daughter needs help and support her learning journey effectively."
+                        </p>
+                    </div>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star-half-alt text-yellow-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Support Section -->
+    <div class="py-12 bg-[#F5F0FF]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Available in multiple languages
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    StudyBuddy makes education accessible in English, Kazakh, and Russian.
+                </p>
+            </div>
+
+            <div class="mt-10 flex justify-center space-x-6">
+                <div class="language-selector flex flex-col items-center">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-white shadow-md border-2 border-[#8A2BE2]">
+                        <span class="text-xl font-bold text-gray-800">EN</span>
+                    </div>
+                    <span class="mt-2 text-sm font-medium text-gray-700">English</span>
+                </div>
+                
+                <div class="language-selector flex flex-col items-center">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-white shadow-md border-2 border-[#8A2BE2]">
+                        <span class="text-xl font-bold text-gray-800">ҚАЗ</span>
+                    </div>
+                    <span class="mt-2 text-sm font-medium text-gray-700">Kazakh</span>
+                </div>
+                
+                <div class="language-selector flex flex-col items-center">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-white shadow-md border-2 border-[#8A2BE2]">
+                        <span class="text-xl font-bold text-gray-800">РУС</span>
+                    </div>
+                    <span class="mt-2 text-sm font-medium text-gray-700">Russian</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Section -->
+    <div id="download" class="py-12 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    Ready to transform your learning?
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl mx-auto">
+                    Download StudyBuddy today and experience the future of education.
+                </p>
+            </div>
+
+            <div class="mt-10 flex justify-center space-x-6">
+                <a href="#" class="download-btn inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-[#8A2BE2] bg-white hover:bg-gray-50">
+                    <i class="fab fa-apple mr-2 text-xl"></i>
+                    <div>
+                        <div class="text-xs">Download on the</div>
+                        <div class="text-lg font-semibold">App Store</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#7B1FA2] hover:bg-[#6A1B9A]">
+                    <i class="fab fa-google-play mr-2 text-xl"></i>
+                    <div>
+                        <div class="text-xs">Get it on</div>
+                        <div class="text-lg font-semibold">Google Play</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Product</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Features</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Download</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Connect</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li class="flex">
+                            <a href="#" class="text-gray-300 hover:text-white">
+                                <i class="fab fa-facebook-f mr-3"></i>
+                            </a>
+                            <a href="#" class="text-gray-300 hover:text-white">
+                                <i class="fab fa-twitter mr-3"></i>
+                            </a>
+                            <a href="#" class="text-gray-300 hover:text-white">
+                                <i class="fab fa-instagram mr-3"></i>
+                            </a>
+                            <a href="#" class="text-gray-300 hover:text-white">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:hello@studybuddy.com" class="text-base text-gray-300 hover:text-white">hello@studybuddy.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8">
+                <p class="text-base text-gray-400 text-center">
+                    &copy; 2023 StudyBuddy. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Language selector animation
+        const languageSelectors = document.querySelectorAll('.language-selector');
+        languageSelectors.forEach(selector => {
+            selector.addEventListener('mouseenter', () => {
+                selector.querySelector('div').classList.add('transform', 'scale-110');
+            });
+            selector.addEventListener('mouseleave', () => {
+                selector.querySelector('div').classList.remove('transform', 'scale-110');
+            });
+        });
+        
+        // Feature card animation
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('shadow-lg');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('shadow-lg');
+            });
+        });
+        
+        // Chat demo functionality
+        const chatInput = document.querySelector('.chat-input');
+        const sendButton = document.querySelector('.send-button');
+        const chatMessages = document.getElementById('chat-messages');
+        
+        sendButton.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                // Add user message
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.className = 'flex items-start justify-end';
+                userMessageDiv.innerHTML = `
+                    <div class="user-message px-4 py-3 max-w-xs sm:max-w-md">
+                        <p>${message}</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center ml-3 flex-shrink-0">
+                        <i class="fas fa-user text-xs"></i>
+                    </div>
+                `;
+                chatMessages.appendChild(userMessageDiv);
+                
+                // Clear input
+                chatInput.value = '';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate AI response after a delay
+                setTimeout(() => {
+                    const aiResponses = [
+                        "I'd be happy to help with that! Could you provide more details about what specifically you're trying to understand?",
+                        "Great question! Let me break that down for you in simple terms.",
+                        "I can explain that concept. Would you like a general overview or a detailed explanation with examples?",
+                        "That's an interesting topic! Here's what you need to know...",
+                        "I can help with that! First, let's make sure we're on the same page about the basics."
+                    ];
+                    
+                    const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                    
+                    const aiMessageDiv = document.createElement('div');
+                    aiMessageDiv.className = 'flex items-start';
+                    aiMessageDiv.innerHTML = `
+                        <div class="w-8 h-8 rounded-full bg-[#8A2BE2] text-white flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-robot text-xs"></i>
+                        </div>
+                        <div class="ai-message px-4 py-3 max-w-xs sm:max-w-md">
+                            <p>${randomResponse}</p>
+                        </div>
+                    `;
+                    chatMessages.appendChild(aiMessageDiv);
+                    
+                    // Scroll to bottom again
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
