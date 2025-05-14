@@ -3,730 +3,1334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyBuddy — Your Smart Learning Assistant</title>
+    <title>Study Buddy - AI Learning Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
         
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
+            background-color: #f9f9f9;
         }
         
         .gradient-bg {
-            background: linear-gradient(135deg, #8A2BE2 0%, #6A5ACD 50%, #9932CC 100%);
+            background: linear-gradient(135deg, #8A2BE2 0%, #4B0082 100%);
         }
         
-        .feature-card:hover {
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .user-bubble {
+            background-color: #8A2BE2;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .ai-bubble {
+            background-color: #f0f0f0;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            padding: 12px 16px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #8A2BE2;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.5s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+            30% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+        
+        .subject-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
-        .language-selector {
-            transition: all 0.3s ease;
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
         }
         
-        .language-selector:hover {
-            transform: scale(1.05);
+        .floating-btn {
+            animation: float 3s ease-in-out infinite;
         }
         
-        .download-btn {
-            transition: all 0.3s ease;
-        }
-        
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-card {
-            transition: all 0.3s ease;
-        }
-        
-        .testimonial-card:hover {
-            transform: scale(1.02);
-        }
-        
-        .chat-container {
-            border: 2px solid #8A2BE2;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.2);
-        }
-        
-        .user-message {
-            background-color: #8A2BE2;
-            color: white;
-            border-radius: 18px 18px 0 18px;
-        }
-        
-        .ai-message {
-            background-color: #f3f4f6;
-            color: #1f2937;
-            border-radius: 18px 18px 18px 0;
-        }
-        
-        .chat-input {
-            border: 2px solid #8A2BE2;
-        }
-        
-        .send-button {
-            background-color: #8A2BE2;
-            color: white;
-        }
-        
-        .send-button:hover {
-            background-color: #7B1FA2;
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <i class="fas fa-graduation-cap text-[#8A2BE2] text-2xl mr-2"></i>
-                        <span class="text-xl font-bold text-[#8A2BE2]">StudyBuddy</span>
-                    </div>
-                </div>
-                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
-                    <a href="#features" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">Features</a>
-                    <a href="#chat-demo" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">AI Chat Demo</a>
-                    <a href="#how-it-works" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">How It Works</a>
-                    <a href="#testimonials" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">Testimonials</a>
-                    <a href="#download" class="text-gray-700 hover:text-[#8A2BE2] px-3 py-2 text-sm font-medium">Download</a>
-                </div>
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <button class="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#8A2BE2] shadow-sm hover:bg-[#7B1FA2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8A2BE2]">
-                            <span>Get Started</span>
-                        </button>
-                    </div>
-                </div>
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-robot text-2xl"></i>
+                <span class="text-xl font-bold">Study Buddy</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-purple-200 transition">Home</a>
+                <a href="#features" class="hover:text-purple-200 transition">Features</a>
+                <a href="#pricing" class="hover:text-purple-200 transition">Pricing</a>
+                <a href="#" class="hover:text-purple-200 transition">Profile</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="bg-white text-purple-800 px-4 py-2 rounded-full font-medium hover:bg-purple-100 transition">
+                    Sign In
+                </button>
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="gradient-bg text-white">
-        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                    Your Smart Learning Assistant
-                </h1>
-                <p class="mt-6 max-w-lg mx-auto text-xl">
-                    Study smarter, not harder with AI-powered tools that make education more efficient and enjoyable.
-                </p>
-                <div class="mt-10 flex justify-center space-x-4">
-                    <a href="#download" class="download-btn inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-[#8A2BE2] bg-white hover:bg-gray-50">
-                        <i class="fab fa-apple mr-2"></i> App Store
-                    </a>
-                    <a href="#download" class="download-btn inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#7B1FA2] hover:bg-[#6A1B9A]">
-                        <i class="fab fa-google-play mr-2"></i> Google Play
-                    </a>
+    <section class="gradient-bg text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">AI is your new personal tutor!</h1>
+                <p class="text-xl mb-8">Master any subject with our interactive learning platform designed for grades 7-11.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-white text-purple-800 px-6 py-3 rounded-full font-bold hover:bg-purple-100 transition shadow-lg">
+                        Get Started
+                    </button>
+                    <button class="border-2 border-white text-white px-6 py-3 rounded-full font-bold hover:bg-white hover:text-purple-800 transition">
+                        Watch Demo
+                    </button>
                 </div>
             </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://illustrations.popsy.co/purple/digital-nomad.svg" alt="AI Tutor" class="w-full max-w-md">
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Features Section -->
-    <div id="features" class="py-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:text-center">
-                <h2 class="text-base text-[#8A2BE2] font-semibold tracking-wide uppercase">Features</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Everything you need to succeed
-                </p>
-            </div>
-
-            <div class="mt-10">
-                <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                    <!-- Feature 1 -->
-                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
-                            <i class="fas fa-calendar-alt text-xl"></i>
-                        </div>
-                        <div class="mt-5">
-                            <h3 class="text-lg font-medium text-gray-900">Plan Smart</h3>
-                            <p class="mt-2 text-base text-gray-500">
-                                Get personalized study plans based on your deadlines and subjects. Never miss an assignment again.
-                            </p>
-                        </div>
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-800">How Study Buddy Helps You Learn</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-robot text-3xl text-purple-800"></i>
                     </div>
-
-                    <!-- Feature 2 -->
-                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
-                            <i class="fas fa-robot text-xl"></i>
-                        </div>
-                        <div class="mt-5">
-                            <h3 class="text-lg font-medium text-gray-900">Learn with AI</h3>
-                            <p class="mt-2 text-base text-gray-500">
-                                Our AI-teacher explains even the most complex topics in a simple and understandable way.
-                            </p>
-                        </div>
+                    <h3 class="text-xl font-bold mb-2 text-purple-800">AI Tutor</h3>
+                    <p class="text-gray-600">Personalized explanations for any topic with interactive examples.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-check-double text-3xl text-purple-800"></i>
                     </div>
-
-                    <!-- Feature 3 -->
-                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
-                            <i class="fas fa-camera text-xl"></i>
-                        </div>
-                        <div class="mt-5">
-                            <h3 class="text-lg font-medium text-gray-900">Check Homework</h3>
-                            <p class="mt-2 text-base text-gray-500">
-                                Upload a photo or text of your assignment — get instant answers and explanations.
-                            </p>
-                        </div>
+                    <h3 class="text-xl font-bold mb-2 text-purple-800">Homework Checker</h3>
+                    <p class="text-gray-600">Instant feedback on your homework with detailed corrections.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-calendar-alt text-3xl text-purple-800"></i>
                     </div>
-
-                    <!-- Feature 4 -->
-                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
-                            <i class="fas fa-gamepad text-xl"></i>
-                        </div>
-                        <div class="mt-5">
-                            <h3 class="text-lg font-medium text-gray-900">Gamify Learning</h3>
-                            <p class="mt-2 text-base text-gray-500">
-                                Turn studying into a fun challenge with interactive quizzes and flashcards.
-                            </p>
-                        </div>
+                    <h3 class="text-xl font-bold mb-2 text-purple-800">Smart Plan</h3>
+                    <p class="text-gray-600">Customized study schedule based on your goals and availability.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-question-circle text-3xl text-purple-800"></i>
                     </div>
-
-                    <!-- Feature 5 -->
-                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
-                            <i class="fas fa-chart-line text-xl"></i>
-                        </div>
-                        <div class="mt-5">
-                            <h3 class="text-lg font-medium text-gray-900">Track Progress</h3>
-                            <p class="mt-2 text-base text-gray-500">
-                                Visualize your learning journey with detailed analytics and performance tracking.
-                            </p>
-                        </div>
+                    <h3 class="text-xl font-bold mb-2 text-purple-800">Quiz</h3>
+                    <p class="text-gray-600">Test your knowledge with interactive quizzes and speed challenges.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-3xl text-purple-800"></i>
                     </div>
-
-                    <!-- Feature 6 -->
-                    <div class="feature-card bg-gray-50 rounded-lg p-6 transition duration-300 ease-in-out">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#8A2BE2] text-white">
-                            <i class="fas fa-users text-xl"></i>
-                        </div>
-                        <div class="mt-5">
-                            <h3 class="text-lg font-medium text-gray-900">Parent & Teacher Mode</h3>
-                            <p class="mt-2 text-base text-gray-500">
-                                Let parents and teachers track progress and support students' learning journey.
-                            </p>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-purple-800">Progress Tracker</h3>
+                    <p class="text-gray-600">Visualize your learning journey and unlock achievements.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- AI Chat Demo Section -->
-    <div id="chat-demo" class="py-12 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:text-center mb-12">
-                <h2 class="text-base text-[#8A2BE2] font-semibold tracking-wide uppercase">AI Chat Demo</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Experience our AI tutor
-                </p>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-                    Try a simulated conversation with StudyBuddy's AI assistant
-                </p>
+    <!-- Grade Selection -->
+    <section class="py-16 bg-purple-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-800">Select Your Grade Level</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Grade 7 -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/designer.svg" alt="Grade 7" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Grade 7</h3>
+                </div>
+                
+                <!-- Grade 8 -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/designer-girl.svg" alt="Grade 8" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Grade 8</h3>
+                </div>
+                
+                <!-- Grade 9 -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer border-2 border-purple-500">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/designer-boy.svg" alt="Grade 9" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Grade 9</h3>
+                    <div class="text-center mt-2">
+                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Selected</span>
+                    </div>
+                </div>
+                
+                <!-- Grade 10 -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/designer-team.svg" alt="Grade 10" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Grade 10</h3>
+                </div>
+                
+                <!-- Grade 11 -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/designer-team-work.svg" alt="Grade 11" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Grade 11</h3>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="max-w-3xl mx-auto">
-                <div class="chat-container bg-white rounded-xl overflow-hidden">
-                    <!-- Chat header -->
-                    <div class="bg-[#8A2BE2] text-white p-4 flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
-                            <i class="fas fa-robot text-[#8A2BE2] text-xl"></i>
+    <!-- Subject Selection -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-purple-800">Subjects for Grade 9</h2>
+                <div class="relative w-64">
+                    <input type="text" placeholder="Search subjects..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Math -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer border-2 border-purple-500">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/mathematics.svg" alt="Mathematics" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Mathematics</h3>
+                    <div class="text-center mt-2">
+                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Selected</span>
+                    </div>
+                </div>
+                
+                <!-- Physics -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/physics.svg" alt="Physics" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Physics</h3>
+                </div>
+                
+                <!-- Chemistry -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/chemistry.svg" alt="Chemistry" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Chemistry</h3>
+                </div>
+                
+                <!-- Biology -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/biology.svg" alt="Biology" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Biology</h3>
+                </div>
+                
+                <!-- History -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/history.svg" alt="History" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">History</h3>
+                </div>
+                
+                <!-- Kazakh -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/literature.svg" alt="Kazakh" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Kazakh</h3>
+                </div>
+                
+                <!-- Russian -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/literature-girl.svg" alt="Russian" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">Russian</h3>
+                </div>
+                
+                <!-- English -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition subject-card cursor-pointer">
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4">
+                        <img src="https://illustrations.popsy.co/purple/english.svg" alt="English" class="w-full">
+                    </div>
+                    <h3 class="text-xl font-bold text-center text-purple-800">English</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topic Selection -->
+    <section class="py-16 bg-purple-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-purple-800">Mathematics Topics</h2>
+                <div class="flex space-x-4">
+                    <button class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium hover:bg-purple-200 transition">
+                        <i class="fas fa-filter mr-2"></i>Filter
+                    </button>
+                    <button class="bg-purple-800 text-white px-4 py-2 rounded-full font-medium hover:bg-purple-700 transition">
+                        <i class="fas fa-random mr-2"></i>Random Topic
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Quadratic Equations -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition cursor-pointer">
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-square-root-alt text-xl text-purple-800"></i>
                         </div>
                         <div>
-                            <h3 class="font-bold">StudyBuddy AI</h3>
-                            <p class="text-xs opacity-80">Online • Ready to help</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Chat messages -->
-                    <div class="p-4 h-96 overflow-y-auto space-y-4" id="chat-messages">
-                        <!-- AI welcome message -->
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 rounded-full bg-[#8A2BE2] text-white flex items-center justify-center mr-3 flex-shrink-0">
-                                <i class="fas fa-robot text-xs"></i>
-                            </div>
-                            <div class="ai-message px-4 py-3 max-w-xs sm:max-w-md">
-                                <p>Hello! I'm StudyBuddy AI. How can I help you with your studies today? You can ask me about any subject, homework problems, or study tips!</p>
-                            </div>
-                        </div>
-                        
-                        <!-- User message -->
-                        <div class="flex items-start justify-end">
-                            <div class="user-message px-4 py-3 max-w-xs sm:max-w-md">
-                                <p>Can you explain the Pythagorean theorem?</p>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center ml-3 flex-shrink-0">
-                                <i class="fas fa-user text-xs"></i>
-                            </div>
-                        </div>
-                        
-                        <!-- AI response -->
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 rounded-full bg-[#8A2BE2] text-white flex items-center justify-center mr-3 flex-shrink-0">
-                                <i class="fas fa-robot text-xs"></i>
-                            </div>
-                            <div class="ai-message px-4 py-3 max-w-xs sm:max-w-md">
-                                <p>Of course! The Pythagorean theorem states that in a right-angled triangle, the square of the hypotenuse (the side opposite the right angle) is equal to the sum of the squares of the other two sides.</p>
-                                <p class="mt-2 font-bold">Formula: a² + b² = c²</p>
-                                <p class="mt-2">Where:<br>
-                                • c is the hypotenuse<br>
-                                • a and b are the other two sides</p>
-                                <p class="mt-2">Would you like me to show you an example problem?</p>
-                            </div>
-                        </div>
-                        
-                        <!-- User message -->
-                        <div class="flex items-start justify-end">
-                            <div class="user-message px-4 py-3 max-w-xs sm:max-w-md">
-                                <p>Yes, please!</p>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center ml-3 flex-shrink-0">
-                                <i class="fas fa-user text-xs"></i>
-                            </div>
-                        </div>
-                        
-                        <!-- AI response -->
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 rounded-full bg-[#8A2BE2] text-white flex items-center justify-center mr-3 flex-shrink-0">
-                                <i class="fas fa-robot text-xs"></i>
-                            </div>
-                            <div class="ai-message px-4 py-3 max-w-xs sm:max-w-md">
-                                <p>Here's an example:</p>
-                                <p class="mt-2">Problem: A right triangle has sides of length 3 and 4. What is the length of the hypotenuse?</p>
-                                <p class="mt-2">Solution:<br>
-                                1. Identify a and b: a = 3, b = 4<br>
-                                2. Apply the formula: 3² + 4² = c²<br>
-                                3. Calculate: 9 + 16 = c² → 25 = c²<br>
-                                4. Take square root: c = √25 = 5</p>
-                                <p class="mt-2 font-bold">Answer: The hypotenuse is 5 units long.</p>
-                                <p class="mt-2">Would you like to try a practice problem?</p>
+                            <h3 class="text-xl font-bold text-purple-800">Quadratic Equations</h3>
+                            <p class="text-gray-600">Learn to solve equations of the form ax² + bx + c = 0</p>
+                            <div class="mt-3">
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Algebra</span>
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Functions -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition cursor-pointer border-2 border-purple-500">
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-project-diagram text-xl text-purple-800"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Functions</h3>
+                            <p class="text-gray-600">Understand linear, quadratic, and exponential functions</p>
+                            <div class="mt-3">
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Algebra</span>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full ml-2">Selected</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Geometry Basics -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition cursor-pointer">
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-shapes text-xl text-purple-800"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Geometry Basics</h3>
+                            <p class="text-gray-600">Points, lines, angles, and basic geometric shapes</p>
+                            <div class="mt-3">
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Geometry</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trigonometry -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition cursor-pointer">
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-wave-square text-xl text-purple-800"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Trigonometry</h3>
+                            <p class="text-gray-600">Sine, cosine, tangent and their applications</p>
+                            <div class="mt-3">
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Geometry</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Probability -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition cursor-pointer">
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-dice text-xl text-purple-800"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Probability</h3>
+                            <p class="text-gray-600">Learn about chance, probability rules, and statistics</p>
+                            <div class="mt-3">
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Statistics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Linear Algebra -->
+                <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition cursor-pointer">
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-vector-square text-xl text-purple-800"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Linear Algebra</h3>
+                            <p class="text-gray-600">Vectors, matrices, and systems of equations</p>
+                            <div class="mt-3">
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Algebra</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tutor Chat Example -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-purple-800">AI Tutor: Functions</h2>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium hover:bg-purple-200 transition">
+                        <i class="fas fa-question-circle mr-2"></i>Help
+                    </button>
+                    <button class="bg-purple-800 text-white px-4 py-2 rounded-full font-medium hover:bg-purple-700 transition">
+                        <i class="fas fa-bookmark mr-2"></i>Save
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl shadow-md p-6">
+                <div class="flex items-center mb-6">
+                    <div class="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-robot text-2xl text-purple-800"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-purple-800">Study Buddy AI</h3>
+                        <p class="text-gray-600 text-sm">Your personal math tutor</p>
+                    </div>
+                </div>
+                
+                <!-- Chat Container -->
+                <div class="bg-white rounded-xl shadow-inner p-4 h-96 overflow-y-auto mb-6 flex flex-col space-y-3" id="chat-container">
+                    <!-- AI Message -->
+                    <div class="chat-bubble ai-bubble">
+                        <p>Hello! I'm your Study Buddy AI. Today we'll learn about <strong>functions</strong> in mathematics. Are you ready to begin?</p>
+                    </div>
                     
-                    <!-- Chat input -->
-                    <div class="border-t border-gray-200 p-4 bg-gray-50">
-                        <div class="flex">
-                            <input type="text" placeholder="Type your question..." class="chat-input flex-1 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8A2BE2]">
-                            <button class="send-button rounded-r-lg px-4 py-2 font-medium transition duration-200">
-                                <i class="fas fa-paper-plane"></i>
+                    <!-- User Message -->
+                    <div class="chat-bubble user-bubble">
+                        <p>Yes, I'm ready! But first, what exactly is a function?</p>
+                    </div>
+                    
+                    <!-- AI Message -->
+                    <div class="chat-bubble ai-bubble">
+                        <p>Great question! In mathematics, a <strong>function</strong> is a relation between a set of inputs (called the domain) and a set of permissible outputs (called the codomain) with the property that each input is related to exactly one output.</p>
+                        <div class="bg-purple-50 p-3 rounded-lg mt-2">
+                            <p class="text-sm font-medium text-purple-800">Example:</p>
+                            <p class="text-sm">f(x) = x + 2 is a function where for every input x, the output is x plus 2.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- User Message -->
+                    <div class="chat-bubble user-bubble">
+                        <p>Okay, that makes sense. How is this different from just an equation?</p>
+                    </div>
+                    
+                    <!-- AI Message -->
+                    <div class="chat-bubble ai-bubble">
+                        <p>Another excellent question! While all functions can be represented by equations, not all equations represent functions. The key difference is that a function must pass the <strong>vertical line test</strong> - meaning no vertical line intersects the graph more than once.</p>
+                        <div class="mt-3 flex justify-center">
+                            <img src="https://www.mathsisfun.com/algebra/images/function-graph.svg" alt="Function Graph" class="w-64 rounded-lg border border-gray-200">
+                        </div>
+                        <p class="mt-2 text-sm text-gray-600 text-center">This graph represents a function because it passes the vertical line test.</p>
+                    </div>
+                    
+                    <!-- AI is typing indicator -->
+                    <div class="typing-indicator ai-bubble" id="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+                
+                <!-- Chat Input -->
+                <div class="flex">
+                    <input type="text" placeholder="Type your question here..." class="flex-grow px-4 py-3 rounded-l-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <button class="bg-purple-800 text-white px-6 py-3 rounded-r-full hover:bg-purple-700 transition">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                
+                <!-- Helpful Buttons -->
+                <div class="flex flex-wrap justify-center mt-6 space-x-4">
+                    <button class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium hover:bg-purple-200 transition">
+                        <i class="fas fa-redo mr-2"></i>Explain Again
+                    </button>
+                    <button class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium hover:bg-purple-200 transition">
+                        <i class="fas fa-lightbulb mr-2"></i>Show Another Example
+                    </button>
+                    <button class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium hover:bg-purple-200 transition">
+                        <i class="fas fa-question mr-2"></i>I Still Don't Get It
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Homework Checker -->
+    <section class="py-16 bg-purple-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-800">Homework Checker</h2>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8 max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-xl font-bold mb-4 text-purple-800">Upload Your Homework</h3>
+                        <div class="border-2 border-dashed border-purple-300 rounded-xl p-8 text-center hover:bg-purple-50 transition cursor-pointer">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-purple-500 mb-4"></i>
+                            <p class="font-medium text-purple-800 mb-2">Drag & Drop your file here</p>
+                            <p class="text-sm text-gray-500 mb-4">or</p>
+                            <button class="bg-purple-800 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition">
+                                Browse Files
+                            </button>
+                            <p class="text-xs text-gray-500 mt-4">Supported formats: PDF, JPG, PNG</p>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <h4 class="font-bold mb-2 text-purple-800">Or paste your text here:</h4>
+                            <textarea class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Type or paste your homework question..."></textarea>
+                            <button class="bg-purple-800 text-white px-6 py-2 rounded-full mt-2 hover:bg-purple-700 transition">
+                                Check My Work
                             </button>
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">This is a demo. In the full app, you can chat with our AI about any subject!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- How It Works Section -->
-    <div id="how-it-works" class="py-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:text-center">
-                <h2 class="text-base text-[#8A2BE2] font-semibold tracking-wide uppercase">How It Works</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Simple steps to better learning
-                </p>
-            </div>
-
-            <div class="mt-10">
-                <div class="relative">
-                    <div class="absolute left-1/2 -ml-px h-full w-0.5 bg-[#8A2BE2] bg-opacity-30" aria-hidden="true"></div>
-                    
-                    <div class="relative mb-12">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 px-4">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#8A2BE2] text-white">
-                                    <span class="text-xl font-bold">1</span>
-                                </div>
-                            </div>
-                            <div class="ml-4 flex-grow">
-                                <h3 class="text-lg font-medium text-gray-900">Sign Up & Set Up</h3>
-                                <p class="mt-2 text-base text-gray-500">
-                                    Create your account, select your subjects, and input your upcoming deadlines. Our AI will analyze your schedule.
-                                </p>
-                            </div>
-                        </div>
                     </div>
                     
-                    <div class="relative mb-12">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 px-4">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#8A2BE2] text-white">
-                                    <span class="text-xl font-bold">2</span>
-                                </div>
-                            </div>
-                            <div class="ml-4 flex-grow">
-                                <h3 class="text-lg font-medium text-gray-900">Get Your Study Plan</h3>
-                                <p class="mt-2 text-base text-gray-500">
-                                    Receive a personalized study schedule that optimizes your time based on your learning pace and priorities.
+                    <div class="md:w-1/2">
+                        <h3 class="text-xl font-bold mb-4 text-purple-800">Example Feedback</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="mb-4">
+                                <p class="font-medium">Your solution:</p>
+                                <p class="bg-red-50 p-2 rounded border-l-4 border-red-500">
+                                    Solve for x: 2x + 5 = 15<br>
+                                    2x = 15 - 5<br>
+                                    x = 10 / 5<br>
+                                    x = 2
                                 </p>
+                                <p class="text-sm text-red-600 mt-1"><i class="fas fa-times-circle mr-1"></i> Error in division step</p>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="relative mb-12">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 px-4">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#8A2BE2] text-white">
-                                    <span class="text-xl font-bold">3</span>
-                                </div>
-                            </div>
-                            <div class="ml-4 flex-grow">
-                                <h3 class="text-lg font-medium text-gray-900">Learn & Interact</h3>
-                                <p class="mt-2 text-base text-gray-500">
-                                    Use our AI tutor, homework checker, and gamified learning tools to master your subjects efficiently.
+                            
+                            <div class="mb-4">
+                                <p class="font-medium">Corrected solution:</p>
+                                <p class="bg-green-50 p-2 rounded border-l-4 border-green-500">
+                                    Solve for x: 2x + 5 = 15<br>
+                                    2x = 15 - 5<br>
+                                    2x = 10<br>
+                                    x = 10 / 2<br>
+                                    x = 5
                                 </p>
+                                <p class="text-sm text-green-600 mt-1"><i class="fas fa-check-circle mr-1"></i> Corrected division step</p>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="relative">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 px-4">
-                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#8A2BE2] text-white">
-                                    <span class="text-xl font-bold">4</span>
-                                </div>
-                            </div>
-                            <div class="ml-4 flex-grow">
-                                <h3 class="text-lg font-medium text-gray-900">Track & Improve</h3>
-                                <p class="mt-2 text-base text-gray-500">
-                                    Monitor your progress with detailed analytics and get recommendations to improve your weak areas.
+                            
+                            <div>
+                                <p class="font-medium">Explanation:</p>
+                                <p class="bg-blue-50 p-2 rounded">
+                                    You subtracted correctly in step 2, but divided incorrectly in step 4. Remember, when you have 2x = 10, you need to divide both sides by 2 to isolate x.
                                 </p>
+                                <button class="text-purple-800 text-sm mt-2 hover:text-purple-600 transition">
+                                    <i class="fas fa-info-circle mr-1"></i> Why is this important?
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Testimonials Section -->
-    <div id="testimonials" class="py-12 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:text-center">
-                <h2 class="text-base text-[#8A2BE2] font-semibold tracking-wide uppercase">Testimonials</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Loved by students worldwide
-                </p>
-            </div>
-
-            <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                <!-- Testimonial 1 -->
-                <div class="testimonial-card bg-white rounded-lg p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="https://randomuser.me/api/portraits/women/32.jpg" alt="">
+    <!-- Smart Plan -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-800">Smart Study Plan</h2>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8 max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-xl font-bold mb-4 text-purple-800">Create Your Plan</h3>
+                        
+                        <div class="mb-6">
+                            <label class="block text-purple-800 font-medium mb-2">What's your goal?</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option>Improve my grades</option>
+                                <option>Prepare for exams</option>
+                                <option>Learn a new topic</option>
+                                <option>Catch up on missed work</option>
+                            </select>
                         </div>
-                        <div class="ml-4">
-                            <h4 class="text-lg font-medium text-gray-900">Amina K.</h4>
-                            <p class="text-[#8A2BE2]">High School Student</p>
+                        
+                        <div class="mb-6">
+                            <label class="block text-purple-800 font-medium mb-2">How much time can you study each week?</label>
+                            <div class="flex items-center">
+                                <input type="range" min="1" max="20" value="5" class="w-full mr-4">
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">5 hours</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-4">
-                        <p class="text-gray-500">
-                            "StudyBuddy helped me improve my grades from B's to A's in just one semester. The AI explanations make complex math concepts so easy to understand!"
-                        </p>
-                    </div>
-                    <div class="mt-4 flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="testimonial-card bg-white rounded-lg p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="https://randomuser.me/api/portraits/men/45.jpg" alt="">
+                        
+                        <div class="mb-6">
+                            <label class="block text-purple-800 font-medium mb-2">Which subjects need the most attention?</label>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-purple-800 text-white px-3 py-1 rounded-full text-sm">Mathematics</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Physics</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Chemistry</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Biology</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">+ Add</span>
+                            </div>
                         </div>
-                        <div class="ml-4">
-                            <h4 class="text-lg font-medium text-gray-900">Dmitry P.</h4>
-                            <p class="text-[#8A2BE2]">University Student</p>
+                        
+                        <button class="bg-purple-800 text-white px-6 py-3 rounded-full w-full hover:bg-purple-700 transition font-bold">
+                            Generate My Plan
+                        </button>
+                    </div>
+                    
+                    <div class="md:w-1/2">
+                        <h3 class="text-xl font-bold mb-4 text-purple-800">Your Weekly Plan</h3>
+                        
+                        <div class="bg-purple-50 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="font-bold text-purple-800">This Week</h4>
+                                <span class="text-sm bg-white px-2 py-1 rounded-full">5 hours total</span>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <!-- Monday -->
+                                <div class="bg-white p-3 rounded-lg shadow-sm">
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">Monday</span>
+                                        <span class="text-sm text-purple-800">1 hour</span>
+                                    </div>
+                                    <div class="mt-1 text-sm">
+                                        <p><i class="fas fa-square-root-alt text-purple-600 mr-2"></i> Mathematics: Quadratic Equations (30 min)</p>
+                                        <p><i class="fas fa-flask text-purple-600 mr-2"></i> Chemistry: Atomic Structure (30 min)</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Tuesday -->
+                                <div class="bg-white p-3 rounded-lg shadow-sm">
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">Tuesday</span>
+                                        <span class="text-sm text-purple-800">1 hour</span>
+                                    </div>
+                                    <div class="mt-1 text-sm">
+                                        <p><i class="fas fa-project-diagram text-purple-600 mr-2"></i> Mathematics: Functions (1 hour)</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Wednesday -->
+                                <div class="bg-white p-3 rounded-lg shadow-sm">
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">Wednesday</span>
+                                        <span class="text-sm text-purple-800">30 min</span>
+                                    </div>
+                                    <div class="mt-1 text-sm">
+                                        <p><i class="fas fa-square-root-alt text-purple-600 mr-2"></i> Mathematics: Review (30 min)</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Thursday -->
+                                <div class="bg-white p-3 rounded-lg shadow-sm">
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">Thursday</span>
+                                        <span class="text-sm text-purple-800">1 hour</span>
+                                    </div>
+                                    <div class="mt-1 text-sm">
+                                        <p><i class="fas fa-flask text-purple-600 mr-2"></i> Chemistry: Periodic Table (1 hour)</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Friday -->
+                                <div class="bg-white p-3 rounded-lg shadow-sm">
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">Friday</span>
+                                        <span class="text-sm text-purple-800">1.5 hours</span>
+                                    </div>
+                                    <div class="mt-1 text-sm">
+                                        <p><i class="fas fa-project-diagram text-purple-600 mr-2"></i> Mathematics: Functions Review (1 hour)</p>
+                                        <p><i class="fas fa-flask text-purple-600 mr-2"></i> Chemistry: Quick Quiz (30 min)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 flex justify-between items-center">
+                                <button class="text-purple-800 hover:text-purple-600 transition">
+                                    <i class="fas fa-edit mr-1"></i> Edit Plan
+                                </button>
+                                <button class="text-purple-800 hover:text-purple-600 transition">
+                                    <i class="fas fa-share-alt mr-1"></i> Share
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-4">
-                        <p class="text-gray-500">
-                            "The homework checker saved me hours every week. I just take a photo of my assignments and get instant feedback. It's like having a tutor available 24/7."
-                        </p>
-                    </div>
-                    <div class="mt-4 flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="testimonial-card bg-white rounded-lg p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-12 w-12 rounded-full" src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="text-lg font-medium text-gray-900">Sarah L.</h4>
-                            <p class="text-[#8A2BE2]">Parent</p>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <p class="text-gray-500">
-                            "As a parent, I love the progress tracking feature. I can see exactly where my daughter needs help and support her learning journey effectively."
-                        </p>
-                    </div>
-                    <div class="mt-4 flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star-half-alt text-yellow-400"></i>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Language Support Section -->
-    <div class="py-12 bg-[#F5F0FF]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Available in multiple languages
-                </h2>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-                    StudyBuddy makes education accessible in English, Kazakh, and Russian.
-                </p>
-            </div>
-
-            <div class="mt-10 flex justify-center space-x-6">
-                <div class="language-selector flex flex-col items-center">
-                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-white shadow-md border-2 border-[#8A2BE2]">
-                        <span class="text-xl font-bold text-gray-800">EN</span>
+    <!-- Quiz Section -->
+    <section class="py-16 bg-purple-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-800">Test Your Knowledge</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Topic Quiz -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="gradient-bg p-6 text-white">
+                        <h3 class="text-xl font-bold mb-2">Topic Quiz</h3>
+                        <p>10-20 questions on a specific subject</p>
                     </div>
-                    <span class="mt-2 text-sm font-medium text-gray-700">English</span>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <label class="block text-purple-800 font-medium mb-2">Select Subject:</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option>Mathematics</option>
+                                <option>Physics</option>
+                                <option>Chemistry</option>
+                                <option>Biology</option>
+                                <option>History</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-purple-800 font-medium mb-2">Select Topic:</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option>Functions</option>
+                                <option>Quadratic Equations</option>
+                                <option>Trigonometry</option>
+                                <option>Geometry Basics</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-purple-800 font-medium mb-2">Number of Questions:</label>
+                            <div class="flex items-center">
+                                <input type="range" min="5" max="20" value="10" class="w-full mr-4">
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">10</span>
+                            </div>
+                        </div>
+                        
+                        <button class="bg-purple-800 text-white px-6 py-3 rounded-full w-full hover:bg-purple-700 transition font-bold">
+                            Start Quiz
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="language-selector flex flex-col items-center">
-                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-white shadow-md border-2 border-[#8A2BE2]">
-                        <span class="text-xl font-bold text-gray-800">ҚАЗ</span>
+                <!-- Speed Mode -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="gradient-bg p-6 text-white">
+                        <h3 class="text-xl font-bold mb-2">Speed Mode</h3>
+                        <p>Answer as many questions as you can in 60 seconds!</p>
                     </div>
-                    <span class="mt-2 text-sm font-medium text-gray-700">Kazakh</span>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <label class="block text-purple-800 font-medium mb-2">Select Subject:</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option>Mathematics</option>
+                                <option>Physics</option>
+                                <option>Chemistry</option>
+                                <option>Biology</option>
+                                <option>Mixed Subjects</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-purple-800 font-medium mb-2">Difficulty:</label>
+                            <div class="flex space-x-4">
+                                <button class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium hover:bg-purple-200 transition">
+                                    Easy
+                                </button>
+                                <button class="bg-purple-800 text-white px-4 py-2 rounded-full font-medium hover:bg-purple-700 transition">
+                                    Medium
+                                </button>
+                                <button class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium hover:bg-purple-200 transition">
+                                    Hard
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-trophy text-yellow-500 text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-yellow-800 mb-1">Your Best Score</h4>
+                                    <p class="text-sm">15 correct answers in 60 seconds (Mathematics)</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="bg-purple-800 text-white px-6 py-3 rounded-full w-full hover:bg-purple-700 transition font-bold">
+                            Start Speed Challenge
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Example Quiz Question -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 max-w-3xl mx-auto mt-12">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Question 3 of 10</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-clock text-purple-800 mr-2"></i>
+                        <span class="font-medium">1:24 remaining</span>
+                    </div>
                 </div>
                 
-                <div class="language-selector flex flex-col items-center">
-                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-white shadow-md border-2 border-[#8A2BE2]">
-                        <span class="text-xl font-bold text-gray-800">РУС</span>
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-purple-800 mb-4">What is the value of f(3) for the function f(x) = 2x² - 5x + 1?</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-purple-50 cursor-pointer">
+                            <div class="w-8 h-8 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center">A</div>
+                            <span>4</span>
+                        </div>
+                        
+                        <div class="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-purple-50 cursor-pointer bg-purple-100 border-purple-300">
+                            <div class="w-8 h-8 rounded-full border-2 border-purple-500 mr-3 flex items-center justify-center bg-purple-500 text-white">B</div>
+                            <span>4 (Selected)</span>
+                        </div>
+                        
+                        <div class="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-purple-50 cursor-pointer">
+                            <div class="w-8 h-8 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center">C</div>
+                            <span>10</span>
+                        </div>
+                        
+                        <div class="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-purple-50 cursor-pointer">
+                            <div class="w-8 h-8 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center">D</div>
+                            <span>22</span>
+                        </div>
                     </div>
-                    <span class="mt-2 text-sm font-medium text-gray-700">Russian</span>
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <button class="text-purple-800 hover:text-purple-600 transition font-medium">
+                        <i class="fas fa-arrow-left mr-1"></i> Previous
+                    </button>
+                    
+                    <div class="flex items-center">
+                        <span class="text-sm text-gray-600 mr-3">The correct answer is D (22)</span>
+                        <button class="bg-purple-800 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition">
+                            Next Question <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Download Section -->
-    <div id="download" class="py-12 gradient-bg text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:text-center">
-                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-                    Ready to transform your learning?
-                </h2>
-                <p class="mt-4 max-w-2xl text-xl mx-auto">
-                    Download StudyBuddy today and experience the future of education.
-                </p>
-            </div>
-
-            <div class="mt-10 flex justify-center space-x-6">
-                <a href="#" class="download-btn inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-[#8A2BE2] bg-white hover:bg-gray-50">
-                    <i class="fab fa-apple mr-2 text-xl"></i>
-                    <div>
-                        <div class="text-xs">Download on the</div>
-                        <div class="text-lg font-semibold">App Store</div>
+    <!-- Progress Tracker -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-800">Your Learning Progress</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Stats Overview -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 lg:col-span-2">
+                    <h3 class="text-xl font-bold mb-6 text-purple-800">Weekly Overview</h3>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="bg-purple-50 rounded-xl p-4 text-center">
+                            <p class="text-sm text-purple-600">Time Studied</p>
+                            <p class="text-2xl font-bold text-purple-800">4.5h</p>
+                            <p class="text-xs text-purple-600">+1.2h from last week</p>
+                        </div>
+                        
+                        <div class="bg-purple-50 rounded-xl p-4 text-center">
+                            <p class="text-sm text-purple-600">Topics Completed</p>
+                            <p class="text-2xl font-bold text-purple-800">3</p>
+                            <p class="text-xs text-purple-600">2 more than last week</p>
+                        </div>
+                        
+                        <div class="bg-purple-50 rounded-xl p-4 text-center">
+                            <p class="text-sm text-purple-600">Quizzes Taken</p>
+                            <p class="text-2xl font-bold text-purple-800">5</p>
+                            <p class="text-xs text-purple-600">80% average score</p>
+                        </div>
                     </div>
-                </a>
-                <a href="#" class="download-btn inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#7B1FA2] hover:bg-[#6A1B9A]">
-                    <i class="fab fa-google-play mr-2 text-xl"></i>
-                    <div>
-                        <div class="text-xs">Get it on</div>
-                        <div class="text-lg font-semibold">Google Play</div>
+                    
+                    <div class="h-64">
+                        <!-- Placeholder for chart -->
+                        <div class="bg-purple-50 rounded-xl h-full flex items-center justify-center">
+                            <p class="text-purple-800">Weekly Study Time Chart</p>
+                        </div>
                     </div>
-                </a>
+                </div>
+                
+                <!-- Achievements -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-6 text-purple-800">Your Achievements</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-trophy text-yellow-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-yellow-800">Fast Learner</h4>
+                                <p class="text-sm">Completed 5 topics in one week</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-medal text-gray-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-600">Quiz Master</h4>
+                                <p class="text-sm">Score 100% on 3 quizzes (1 more to unlock)</p>
+                                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                    <div class="bg-purple-600 h-1.5 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-medal text-gray-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-600">Dedicated Student</h4>
+                                <p class="text-sm">Study for 10 hours (5 more to unlock)</p>
+                                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                    <div class="bg-purple-600 h-1.5 rounded-full" style="width: 50%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-medal text-gray-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-600">Speed Champion</h4>
+                                <p class="text-sm">Answer 20 questions in Speed Mode</p>
+                                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                    <div class="bg-purple-600 h-1.5 rounded-full" style="width: 25%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-6 text-purple-800 hover:text-purple-600 transition font-medium text-center">
+                        View All Achievements <i class="fas fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+                
+                <!-- XP Progress -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 lg:col-span-2">
+                    <h3 class="text-xl font-bold mb-6 text-purple-800">Experience Points</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-1">
+                            <span class="font-medium">Level 3</span>
+                            <span class="font-medium">250/500 XP</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-700 h-4 rounded-full" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold mb-3 text-purple-800">Recent XP Gains</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span>Completed "Functions" topic</span>
+                                    <span class="font-bold text-purple-800">+50 XP</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Quiz on Quadratic Equations</span>
+                                    <span class="font-bold text-purple-800">+30 XP</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Speed Mode Challenge</span>
+                                    <span class="font-bold text-purple-800">+20 XP</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Daily Login</span>
+                                    <span class="font-bold text-purple-800">+10 XP</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold mb-3 text-purple-800">Leaderboard</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-2 bg-purple-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <span class="font-bold text-purple-800 mr-3">1</span>
+                                        <span>Alex K.</span>
+                                    </div>
+                                    <span class="font-bold">1200 XP</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-purple-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <span class="font-bold text-purple-800 mr-3">2</span>
+                                        <span>Maria S.</span>
+                                    </div>
+                                    <span class="font-bold">950 XP</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-purple-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <span class="font-bold text-purple-800 mr-3">3</span>
+                                        <span>You</span>
+                                    </div>
+                                    <span class="font-bold">750 XP</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2">
+                                    <div class="flex items-center">
+                                        <span class="font-bold text-purple-800 mr-3">4</span>
+                                        <span>Dmitry P.</span>
+                                    </div>
+                                    <span class="font-bold">600 XP</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Subject Progress -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-6 text-purple-800">Subject Progress</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Mathematics</span>
+                                <span class="text-sm">65%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Physics</span>
+                                <span class="text-sm">40%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Chemistry</span>
+                                <span class="text-sm">30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Biology</span>
+                                <span class="text-sm">15%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">History</span>
+                                <span class="text-sm">5%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 5%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-6 text-purple-800 hover:text-purple-600 transition font-medium text-center">
+                        View Detailed Progress <i class="fas fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-purple-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-800">Choose Your Plan</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Free Plan -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="gradient-bg p-6 text-white">
+                        <h3 class="text-xl font-bold mb-2">Free</h3>
+                        <p>Basic access to get started</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center mb-6">
+                            <span class="text-4xl font-bold text-purple-800">$0</span>
+                            <span class="text-gray-600">/month</span>
+                        </div>
+                        
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Access to basic AI tutor</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>5 homework checks per week</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Basic study plan</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fas fa-times text-red-400 mr-2"></i>
+                                <span>No premium quizzes</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fas fa-times text-red-400 mr-2"></i>
+                                <span>Limited progress tracking</span>
+                            </li>
+                        </ul>
+                        
+                        <button class="bg-purple-100 text-purple-800 px-6 py-3 rounded-full w-full hover:bg-purple-200 transition font-bold">
+                            Current Plan
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Premium Monthly -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-purple-500 transform scale-105">
+                    <div class="gradient-bg p-6 text-white">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Premium</h3>
+                                <p>Full access to all features</p>
+                            </div>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-bold">POPULAR</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center mb-6">
+                            <span class="text-4xl font-bold text-purple-800">$4</span>
+                            <span class="text-gray-600">/month</span>
+                        </div>
+                        
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Full AI tutor access</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Unlimited homework checks</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Advanced smart study plan</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Premium quizzes and speed mode</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Complete progress tracking</span>
+                            </li>
+                        </ul>
+                        
+                        <button class="bg-purple-800 text-white px-6 py-3 rounded-full w-full hover:bg-purple-700 transition font-bold">
+                            Upgrade Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Premium Yearly -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="gradient-bg p-6 text-white">
+                        <h3 class="text-xl font-bold mb-2">Premium Yearly</h3>
+                        <p>Best value with 20% discount</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center mb-6">
+                            <span class="text-4xl font-bold text-purple-800">$40</span>
+                            <span class="text-gray-600">/year</span>
+                        </div>
+                        
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Full AI tutor access</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Unlimited homework checks</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Advanced smart study plan</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Premium quizzes and speed mode</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Complete progress tracking</span>
+                            </li>
+                        </ul>
+                        
+                        <button class="bg-purple-800 text-white px-6 py-3 rounded-full w-full hover:bg-purple-700 transition font-bold">
+                            Save 20%
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <footer class="bg-purple-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Product</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Features</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Pricing</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Download</a></li>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-robot text-2xl"></i>
+                        <span class="text-xl font-bold">Study Buddy</span>
+                    </div>
+                    <p class="text-purple-200 mb-4">Your AI-powered learning companion for grades 7-11.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-purple-200 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-purple-200 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-purple-200 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-purple-200 hover:text-white transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Features</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">AI Tutor</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Homework Checker</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Smart Plan</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Quiz & Speed Mode</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Progress Tracker</a></li>
                     </ul>
                 </div>
+                
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Help Center</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Contact Us</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Privacy Policy</a></li>
+                    <h3 class="text-lg font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Tutorials</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Community</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Webinars</a></li>
                     </ul>
                 </div>
+                
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">About</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Careers</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Blog</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Connect</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li class="flex">
-                            <a href="#" class="text-gray-300 hover:text-white">
-                                <i class="fab fa-facebook-f mr-3"></i>
-                            </a>
-                            <a href="#" class="text-gray-300 hover:text-white">
-                                <i class="fab fa-twitter mr-3"></i>
-                            </a>
-                            <a href="#" class="text-gray-300 hover:text-white">
-                                <i class="fab fa-instagram mr-3"></i>
-                            </a>
-                            <a href="#" class="text-gray-300 hover:text-white">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:hello@studybuddy.com" class="text-base text-gray-300 hover:text-white">hello@studybuddy.com</a>
-                        </li>
+                    <h3 class="text-lg font-bold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Press</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Partners</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition">Contact</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="mt-12 border-t border-gray-700 pt-8">
-                <p class="text-base text-gray-400 text-center">
-                    &copy; 2023 StudyBuddy. All rights reserved.
-                </p>
+            
+            <div class="border-t border-purple-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-purple-200 mb-4 md:mb-0">© 2023 Study Buddy. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-purple-200 hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-purple-200 hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="text-purple-200 hover:text-white transition">Cookie Policy</a>
+                </div>
             </div>
-        </div>
-    </footer>
 
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Language selector animation
-        const languageSelectors = document.querySelectorAll('.language-selector');
-        languageSelectors.forEach(selector => {
-            selector.addEventListener('mouseenter', () => {
-                selector.querySelector('div').classList.add('transform', 'scale-110');
-            });
-            selector.addEventListener('mouseleave', () => {
-                selector.querySelector('div').classList.remove('transform', 'scale-110');
-            });
-        });
-        
-        // Feature card animation
-        const featureCards = document.querySelectorAll('.feature-card');
-        featureCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.classList.add('shadow-lg');
-            });
-            card.addEventListener('mouseleave', () => {
-                card.classList.remove('shadow-lg');
-            });
-        });
-        
-        // Chat demo functionality
-        const chatInput = document.querySelector('.chat-input');
-        const sendButton = document.querySelector('.send-button');
-        const chatMessages = document.getElementById('chat-messages');
-        
-        sendButton.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-        
-        function sendMessage() {
-            const message = chatInput.value.trim();
-            if (message) {
-                // Add user message
-                const userMessageDiv = document.createElement('div');
-                userMessageDiv.className = 'flex items-start justify-end';
-                userMessageDiv.innerHTML = `
-                    <div class="user-message px-4 py-3 max-w-xs sm:max-w-md">
-                        <p>${message}</p>
-                    </div>
-                    <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center ml-3 flex-shrink-0">
-                        <i class="fas fa-user text-xs"></i>
-                    </div>
-                `;
-                chatMessages.appendChild(userMessageDiv);
-                
-                // Clear input
-                chatInput.value = '';
-                
-                // Scroll to bottom
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Simulate AI response after a delay
-                setTimeout(() => {
-                    const aiResponses = [
-                        "I'd be happy to help with that! Could you provide more details about what specifically you're trying to understand?",
-                        "Great question! Let me break that down for you in simple terms.",
-                        "I can explain that concept. Would you like a general overview or a detailed explanation with examples?",
-                        "That's an interesting topic! Here's what you need to know...",
-                        "I can help with that! First, let's make sure we're on the same page about the basics."
-                    ];
-                    
-                    const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
-                    
-                    const aiMessageDiv = document.createElement('div');
-                    aiMessageDiv.className = 'flex items-start';
-                    aiMessageDiv.innerHTML = `
-                        <div class="w-8 h-8 rounded-full bg-[#8A2BE2] text-white flex items-center justify-center mr-3 flex-shrink-0">
-                            <i class="fas fa-robot text-xs"></i>
-                        </div>
-                        <div class="ai-message px-4 py-3 max-w-xs sm:max-w-md">
-                            <p>${randomResponse}</p>
-                        </div>
-                    `;
-                    chatMessages.appendChild(aiMessageDiv);
-                    
-                    // Scroll to bottom again
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 1000);
-            }
-        }
-    </script>
-</body>
 </html>
